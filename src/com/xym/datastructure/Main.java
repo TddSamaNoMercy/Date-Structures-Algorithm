@@ -1,7 +1,10 @@
 package com.xym.datastructure;
 
+import java.net.Inet4Address;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Node;
@@ -22,40 +25,34 @@ import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Node;
 
 public class Main {
     public static void main(String[] args) {
-//        String s = "1.0";
-//        String[] strs = s.split("\\.");
-//        for (String str : strs) {
-//            System.out.println(str+"\n");
+        int[] arr = {1, 4, 5, 6, 3, 8, 8, 7, 4, 1};
+        CirDoubLinkedList<Integer> a = new CirDoubLinkedList<>(arr);
+        a.add(1, 3);
+        System.out.println(a);
+        a.addFirst(10);
+        System.out.println(a);
+        a.remove(7);
+        System.out.println(a);
+        a.removeE(4);
+        System.out.println(a);
+
+//        List<String> a = new LinkedList<>();
+//        a.add("A");
+//        a.add("B");
+//        a.add("C");
+//        List<String> b = new LinkedList<>();
+//        b.add("D");
+//        b.add("E");
+//        b.add("F");
+//        b.add("G");
+//
+//        ListIterator<String> aIter = a.listIterator();
+//        Iterator<String> bIter = b.iterator();
+//
+//        while (bIter.hasNext()){
+//            if (aIter.hasNext()) aIter.next();
+//            aIter.add(bIter.next());
 //        }
-        CirDoubLinkedList cdLL = new CirDoubLinkedList();
-//        DoubleLinkedList<Integer> d = new DoubleLinkedList<>();
-
-        cdLL.addFirst(1);
-        System.out.println(cdLL);
-        cdLL.addLast(3);
-        System.out.println(cdLL);
-        cdLL.addFirst(5);
-        System.out.println(cdLL);
-        cdLL.addLast(7);
-        System.out.println(cdLL);
-        cdLL.add(9,2);
-        System.out.println(cdLL);
-        cdLL.add(9,2);
-        System.out.println(cdLL);
-        cdLL.add(9,2);
-        System.out.println(cdLL);
-//        cdLL.remove(3);
-//        System.out.println(cdLL);
-//        cdLL.remove(0);
-//        System.out.println(cdLL);
-//        cdLL.remove(4);
-//        System.out.println(cdLL);
-        cdLL.removeE(3);
-        System.out.println(cdLL);
-        cdLL.removeE(19);
-        System.out.println(cdLL);
-        cdLL.removeE(9);
-        System.out.println(cdLL);
-
+//        System.out.println(a);
     }
 }

@@ -1,5 +1,6 @@
 package com.xym.datastructure;
 
+import com.sun.org.apache.bcel.internal.generic.INEG;
 import com.sun.org.apache.regexp.internal.RE;
 
 import javax.tools.ForwardingFileObject;
@@ -31,6 +32,17 @@ public class CirDoubLinkedList<T> {
         dmHead = new Node<>();
         dmHead.pre = dmHead;
         dmHead.next = dmHead;
+    }
+    public CirDoubLinkedList(int[] arr){
+        this();
+        Node preNode = dmHead;
+        for (int i = 0; i < arr.length; i++) {
+            Node newNode = new Node(preNode, preNode.next, arr[i]);
+            preNode.next.pre = newNode;
+            preNode.next = newNode;
+            preNode = preNode.next;
+            size++;
+        }
     }
 
     public boolean isEmpty(){
