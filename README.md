@@ -25,3 +25,4 @@ public void add(E e, int index) {
         }
     }
  ```
+ 3. 删除或添加操作时遍历数组不要直接使用size，size是变化的。
