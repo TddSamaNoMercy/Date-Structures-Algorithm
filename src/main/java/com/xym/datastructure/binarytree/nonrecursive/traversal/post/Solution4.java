@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Stack;
 
 // Classic Non-Recursive
-// Using a pre pointer to record the last visted node
+// Using a pre pointer to record the last visited node
 //
 // Time Complexity: O(n)
 // Space Complexity: O(h)
@@ -29,9 +29,8 @@ public class Solution4 {
                 stack.push(cur);
                 cur = cur.left;
             }
-
             cur = stack.pop();
-            if (cur.right == null || pre == cur.right) {
+            if (cur.right == null || cur.right == pre) {
                 res.add(cur.val);
                 pre = cur;
                 cur = null;

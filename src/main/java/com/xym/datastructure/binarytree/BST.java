@@ -61,11 +61,13 @@ public class BST<E extends Comparable<E>> {
             } else
                 return node;
         }
-        if (e.compareTo(pre.e) < 0)
+        if (e.compareTo(pre.e) < 0) {
             pre.left = new Node(e);
-        else
+            size++;
+        } else {
             pre.right = new Node(e);
-
+            size++;
+        }
         return node;
     }
 
@@ -247,10 +249,68 @@ public class BST<E extends Comparable<E>> {
         }
     }
 
-    private String depth(int depth) {
-        StringBuilder res = new StringBuilder();
-        res.append(" ");
-        return res.toString();
+    //    private E depth(int depth) {
+//        StringBuilder res = new StringBuilder();
+//        res.append(" ");
+//        return res.toString();
+//    }
+    private Node getMax(Node node) {
+        if (node == null) throw new IllegalArgumentException();
+        while (node.right != null) {
+            node = node.right;
+        }
+        return node;
+    }
+
+    public E removeMax() {
+        E res = getMax(root).e;
+        root = removeMax(root);
+        return res;
+    }
+
+    private Node removeMax(Node node) {
+        if (node == null) throw new IllegalArgumentException();
+        if (node.right == null) {
+            node = node.left;
+            size--;
+            return node;
+        }
+        node.right = removeMax(node.right);
+        return node;
+    }
+
+    public void remove(E e) {
+        root = remove(root, e);
+    }
+
+    private Node remove(Node node, E e) {
+        if (node == null) return null;
+        if (e.compareTo(node.e) < 0) {
+            node.left = remove(node.left, e);
+            return node;
+        } else if (e.compareTo(node.e) > 0) {
+            node.right = remove(node.right, e);
+            return node;
+        } else {
+            if (node.left == null) {
+                Node right = node.right;
+                node.right = null;
+                size--;
+                return right;
+            }
+            if (node.right == null) {
+                Node left = node.left;
+                node.left = null;
+                size--;
+                return left;
+            } else {
+                Node suc = getMax(node.left);
+                suc.left = removeMax(node.left);
+                suc.right = node.right;
+                node = null;
+                return suc;
+            }
+        }
     }
 
 }

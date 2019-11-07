@@ -13,11 +13,11 @@ public class Solution2 {
 
     public List<Integer> preorderTraversal(TreeNode root) {
 
-        ArrayList<Integer> res = new ArrayList<Integer>();
+        ArrayList<Integer> res = new ArrayList<>();
         if(root == null)
             return res;
 
-        Stack<TreeNode> stack = new Stack<TreeNode>();
+        Stack<TreeNode> stack = new Stack<>();
         TreeNode cur = root;
         while(cur != null || !stack.isEmpty()){
             while(cur != null){
