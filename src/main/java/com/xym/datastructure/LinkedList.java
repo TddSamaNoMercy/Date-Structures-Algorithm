@@ -3,19 +3,19 @@ package com.xym.datastructure;
 public class LinkedList<E> {
 
     private class Node {
-        public E e;
-        public Node next;
+        E e;
+        Node next;
 
-        public Node(E e, Node next) {
+        Node(E e, Node next) {
             this.e = e;
             this.next = next;
         }
 
-        public Node(E e) {
+        Node(E e) {
             this(e, null);
         }
 
-        public Node() {
+        Node() {
             this(null, null);
         }
 
@@ -67,6 +67,7 @@ public class LinkedList<E> {
     public void addLast(E e) {
         add(size, e);
     }
+
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();

@@ -1,8 +1,5 @@
 package com.xym.datastructure;
 
-import java.util.LinkedList;
-import java.util.function.Predicate;
-
 /**
  * Double LinkedList
  *
@@ -14,17 +11,17 @@ public class DoubleLinkedList<E> {
         Node pre;
         Node next;
 
-        public Node(E e, Node pre, Node next) {
+        Node(E e, Node pre, Node next) {
             this.e = e;
             this.pre = pre;
             this.next = next;
         }
 
-        public Node(E e) {
+        Node(E e) {
             this(e, null, null);
         }
 
-        public Node() {
+        Node() {
             this(null, null, null);
         }
 
@@ -44,7 +41,7 @@ public class DoubleLinkedList<E> {
         size = 0;
     }
 
-    public boolean isEmpty() {
+    boolean isEmpty() {
         return size == 0;
     }
 
@@ -77,7 +74,7 @@ public class DoubleLinkedList<E> {
         add(e, size);
     }
 
-    public E get(int index) {
+    E get(int index) {
         if (index < 0 || index > size - 1) {
             throw new IllegalArgumentException("非法位置");
         }
@@ -108,7 +105,7 @@ public class DoubleLinkedList<E> {
     public void removeE(E e) {
         if (isEmpty()) return;
         Node curNode = dh.next;
-        while (curNode.next!=null){
+        while (curNode.next != null) {
             if (curNode.e.equals(e)) {
                 curNode.next.pre = curNode.pre;
                 curNode.pre.next = curNode.next;
@@ -116,7 +113,7 @@ public class DoubleLinkedList<E> {
             }
             curNode = curNode.next;
         }
-        if (tail!=null&&tail.e.equals(e)){
+        if (tail != null && tail.e.equals(e)) {
             tail.pre.next = null;
             tail = tail.pre;
             size--;
