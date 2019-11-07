@@ -1,4 +1,4 @@
-package com.xym.datastructure;
+package com.xym.datastructure.linearstructure;
 
 public class CirDoubLinkedList<T> {
     private class Node<T> {
