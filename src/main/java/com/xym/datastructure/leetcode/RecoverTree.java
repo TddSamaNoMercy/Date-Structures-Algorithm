@@ -11,6 +11,7 @@ public class RecoverTree {
             val = x;
         }
     }
+
     public TreeNode recoverFromPreorder(String pre, String in) {
         if (pre.length() == 0) return null;
         return helper(pre, in);
@@ -21,16 +22,16 @@ public class RecoverTree {
         if (pre.length() == 0) return null;
         if (pre.length() == 1) return new TreeNode(pre);
         int index = 0;
-        while ((index<pre.length())&&(pre.charAt(0)!=in.charAt(index))){
+        while ((index < pre.length()) && (pre.charAt(0) != in.charAt(index))) {
             index++;
         }
-        if (index==0){
-            node.left=null;
-        }else {
+        if (index == 0) {
+            node.left = null;
+        } else {
             node.left = helper(pre.substring(1, index + 1), in.substring(0, index));
         }
         if (index != pre.length() - 1) {
-            node.right = helper(pre.substring(index+1), in.substring(index + 1));
+            node.right = helper(pre.substring(index + 1), in.substring(index + 1));
         } else {
             node.right = null;
         }
