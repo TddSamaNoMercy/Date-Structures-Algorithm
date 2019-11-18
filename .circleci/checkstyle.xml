@@ -29,7 +29,7 @@
         <module name="UpperEll" />
         <module name="LeftCurly"/>
 <!--        <module name="NeedBraces"/>-->
-        <module name="RightCurly"/>
+<!--        <module name="RightCurly"/>-->
         <module name="GenericWhitespace"/>
         <module name="NoWhitespaceBefore"/>
     </module>
