@@ -3,6 +3,7 @@ package com.xym.datastructure.leetcode;
 import java.util.Arrays;
 
 //303. 区域和检索 - 数组不可变
+//树状数组binary indexed tree
 //class NumArray {
 //    private int[] data;
 //
@@ -81,9 +82,9 @@ class NumArray {
 //            } else if (mid >= j) {
 //                return sumRange(index * 2, i, j, l, mid);
 //            } else {
-//                int leftrRes = sumRange(index * 2, i, mid, l, mid);
+//                int leftRes = sumRange(index * 2, i, mid, l, mid);
 //                int rightRes = sumRange(index * 2 + 1, mid, j, mid, r);
-//                return leftrRes + rightRes;
+//                return leftRes + rightRes;
 //            }
 //        } else {
 //            return treeSeg[index];
@@ -114,8 +115,8 @@ class NumArray {
     }
 
     private int sumIndex(int index) {
-        int ret = 0, x = index;
-        for (; x > 0; ret += BITree[x], x -= lowbit(x));
+        int ret = 0;
+        for (int x = index; x > 0; ret += BITree[x], x -= lowbit(x));
         return ret;
     }
 

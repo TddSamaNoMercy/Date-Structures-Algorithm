@@ -1,9 +1,14 @@
 package com.xym.datastructure.binarytree;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class AVLTree<K extends Comparable<K>, V> {
 
@@ -88,10 +93,11 @@ public class AVLTree<K extends Comparable<K>, V> {
     // T1   T2
     private Node rightRotate(Node y) {
         Node x = y.left;
-        Node T3 = x.right;
+//        Node T3 = x.right;
 
+        y.left = x.right;
         x.right = y;
-        y.left = T3;
+//        y.left = T3;
 
         // 更新height
         y.height = Math.max(getHeight(y.left), getHeight(y.right)) + 1;
@@ -114,11 +120,12 @@ public class AVLTree<K extends Comparable<K>, V> {
     //     T3 T4
     private Node leftRotate(Node y) {
         Node x = y.right;
-        Node T2 = x.left;
+//        Node T2 = x.left;
 
         // 向左旋转过程
+        y.right = x.left;
         x.left = y;
-        y.right = T2;
+//        y.right = T2;
 
         // 更新height
         y.height = Math.max(getHeight(y.left), getHeight(y.right)) + 1;
@@ -263,7 +270,7 @@ public class AVLTree<K extends Comparable<K>, V> {
 
             else {// 用这个节点顶替待删除节点的位置
                 Node successor = minimum(node.right);
-                successor.right = remove(node.right,successor.key);
+                successor.right = remove(node.right, successor.key);
                 successor.left = node.left;
 
                 node.left = node.right = null;
@@ -272,10 +279,10 @@ public class AVLTree<K extends Comparable<K>, V> {
             }
         }
         if (retNode == null) return null;
-        retNode.height = Math.max(getHeight(retNode.left),getHeight(retNode.right)) +1;
+        retNode.height = Math.max(getHeight(retNode.left), getHeight(retNode.right)) + 1;
 
         int balanceFactor = getBalanceFactor(retNode);
-        if (balanceFactor > 1 && getBalanceFactor(retNode.left) >=0) {
+        if (balanceFactor > 1 && getBalanceFactor(retNode.left) >= 0) {
 
             return rightRotate(retNode);
         }
@@ -294,44 +301,37 @@ public class AVLTree<K extends Comparable<K>, V> {
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
 
-//        System.out.println("Pride and Prejudice");
-//
-//        ArrayList<String> words = new ArrayList<>();
+        System.out.println("Pride and Prejudice");
+
+        List<String> words = new ArrayList<>();
+        File file = new File("src/main/resources/" + "pride-and-prejudice.txt");
+        List<String> list = Files.readAllLines(file.toPath());
+        words = list.stream().flatMap((s) -> Stream.of(s.split(" "))).collect(Collectors.toList());
 //        if(FileOperation.readFile("pride-and-prejudice.txt", words)) {
-//            System.out.println("Total words: " + words.size());
+        System.out.println("Total words: " + words.size());
 
-            AVLTree<Integer, Integer> map = new AVLTree<>();
-//            for (String word : words) {
-//                if (map.contains(word))
-//                    map.set(word, map.get(word) + 1);
-//                else
-//                    map.add(word, 1);
-//            }
+        AVLTree<String, Integer> map = new AVLTree<>();
+        for (String word : words) {
+            if (map.contains(word))
+                map.set(word, map.get(word) + 1);
+            else
+                map.add(word, 1);
+        }
 
-//            System.out.println("Total different words: " + map.getSize());
-//            System.out.println("Frequency of PRIDE: " + map.get("pride"));
-//            System.out.println("Frequency of PREJUDICE: " + map.get("prejudice"));
-            for (int i = 0; i < 10; i++) {
-                map.add(i,null);
-            }
+        System.out.println("Total different words: " + map.getSize());
+        System.out.println("Frequency of PRIDE: " + map.get("pride"));
+        System.out.println("Frequency of PREJUDICE: " + map.get("prejudice"));
+        System.out.println(map.isBST());
+        System.out.println(map.isBalanced());
 
-            System.out.println("is BST : " + map.isBST());
-            System.out.println("is Balanced : " + map.isBalanced());
 
 //            for(String word: words){
 //                map.remove(word);
-//                if(!map.isBST() || !map.isBalanced())
-//                    throw new RuntimeException();
 //            }
-            for (int i = 0; i < 10; i++) {
-                map.remove(i);
-                if (!map.isBalanced() || !map.isBST())
-                    throw new RuntimeException();
-            }
 //        }
-//
-//        System.out.println();
+
+        System.out.println();
     }
 }
