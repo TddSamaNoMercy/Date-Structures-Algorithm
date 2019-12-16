@@ -7,11 +7,7 @@ public class BinaryTreeTest {
         for (int i : arr) {
             bst.add(i);
         }
-//        bst.preOrder();
-        bst.inOrder();
         bst.remove(2);
         System.out.println("*****");
-        bst.postOrder();
-//        bst.postOrder();
     }
 }

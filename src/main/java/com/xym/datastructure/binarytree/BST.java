@@ -63,11 +63,10 @@ public class BST<E extends Comparable<E>> {
         }
         if (e.compareTo(pre.e) < 0) {
             pre.left = new Node(e);
-            size++;
         } else {
             pre.right = new Node(e);
-            size++;
         }
+        size++;
         return node;
     }
 
@@ -82,143 +81,6 @@ public class BST<E extends Comparable<E>> {
         else return contains(node.right, e);
     }
 
-    public void preOrder() {
-        preOrder(root);
-    }
-
-    public void preOrder(Node node) {
-        if (node == null) return;
-        System.out.println(node.e);
-        preOrder(node.left);
-        preOrder(node.right);
-    }
-
-    public void inOrder() {
-        inOrder(root);
-    }
-
-    private void inOrder(Node node) {
-        Node cur = node;
-        Deque<Node> stack = new ArrayDeque<>();
-        while (true) {
-            if (cur != null) {
-                stack.push(cur);
-                cur = cur.left;
-            } else if (!stack.isEmpty()) {
-                cur = stack.pop();
-                System.out.println(cur.e);
-                cur = cur.right;
-            } else {
-                break;
-            }
-        }
-//        stack.push(cur);
-//        while (true) {
-//            while (cur!=null&&cur.left!=null) {
-//                stack.push(cur.left);
-//                cur = cur.left;
-//            }
-//            if (stack.isEmpty()) {
-//                break;
-//            }
-//            cur = stack.pop();
-//            System.out.println(cur.e);
-//            cur = cur.right;
-//            if (cur != null) stack.push(cur);
-//        }
-    }
-
-    public void postOrder() {
-        postOrder1(root);
-    }
-
-    private void postOrder(Node node) {
-        Deque<Node> stack = new ArrayDeque<>();
-        Node cur = node;
-        stack.push(cur);
-        while (stack.isEmpty()) {
-            if (!(stack.peek().left == cur) && !(stack.peek().right == cur)) {
-                gotoHLVFL(stack);
-            }
-            cur = stack.pop();
-            System.out.println(cur.e);
-        }
-    }
-
-    private void gotoHLVFL(Deque<Node> stack) {
-
-        while (true) {
-            Node cur = stack.peek();
-            if (cur.left != null) {
-                if (cur.right != null) stack.push(cur.right);
-                stack.push(cur.left);
-            } else if (cur.right != null) {
-                stack.push(cur.right);
-            } else
-                break;
-        }
-    }
-
-    public void postOrder1(Node node) {
-        if (node == null) return;
-        Deque<Node> stack = new ArrayDeque<>();
-        Node cur = node;
-        stack.push(cur);
-        while (!stack.isEmpty()) {
-            if (!(stack.peek().left == cur) && !(stack.peek().right == cur)) {
-                while (true) {
-                    cur = stack.peek();
-                    if (cur.left != null) {
-                        if (cur.right != null) stack.push(cur.right);
-                        stack.push(cur.left);
-                    } else if (cur.right != null) {
-                        stack.push(cur.right);
-                    } else
-                        break;
-                }
-            }
-            cur = stack.pop();
-            System.out.println(cur.e);
-        }
-    }
-
-
-    public void postOrder2(Node node) {
-        if (node == null)
-            return;
-        Deque<Node> s = new ArrayDeque<>();
-
-        Node curNode; //当前访问的结点
-        Node lastVisitNode; //上次访问的结点
-        curNode = node;
-        lastVisitNode = null;
-
-        //把currentNode移到左子树的最下边
-        while (curNode != null) {
-            s.push(curNode);
-            curNode = curNode.left;
-        }
-        while (!s.isEmpty()) {
-            curNode = s.pop();  //弹出栈顶元素
-            //一个根节点被访问的前提是：无右子树或右子树已被访问过
-            if (curNode.right != null && curNode.right != lastVisitNode) {
-                //根节点再次入栈
-                s.push(curNode);
-                //进入右子树，且可肯定右子树一定不为空
-                curNode = curNode.right;
-                while (curNode != null) {
-                    //再走到右子树的最左边
-                    s.push(curNode);
-                    curNode = curNode.left;
-                }
-            } else {
-                //访问
-                System.out.println(curNode.e);
-                //修改最近被访问的节点
-                lastVisitNode = curNode;
-            }
-        } //while
-    }
 
     public void levelTraverse() {
         levelTraverse(root);
@@ -277,6 +139,44 @@ public class BST<E extends Comparable<E>> {
         }
         node.right = removeMax(node.right);
         return node;
+    }
+
+    public void inorder() {
+        inorder(root);
+    }
+
+    public void postorder(){
+        postorder(root);
+    }
+
+    private void postorder(Node node) {
+        Deque<Node> stack = new ArrayDeque<>();
+        Node pre = null;
+        Node cur = node;
+        while (cur != null || !stack.isEmpty()) {
+            if (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            } else {
+                cur = stack.pop();
+                if (cur.right == null || pre == cur.right) {
+                    System.out.print(cur.e + " ");
+                    pre = cur;
+                    cur = null;
+                } else {
+                    stack.push(cur);
+                    cur = cur.right;
+                }
+            }
+        }
+    }
+
+    private void inorder(Node node) {
+        if (node!=null) {
+            inorder(node.left);
+            System.out.print(node.e + " ");
+            inorder(node.right);
+        }
     }
 
     public void remove(E e) {
