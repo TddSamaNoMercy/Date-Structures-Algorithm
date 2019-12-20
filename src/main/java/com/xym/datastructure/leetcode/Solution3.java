@@ -23,20 +23,20 @@ import java.util.Map;
 public class Solution3 {
     public int lengthOfLongestSubstring(String s) {
         int n = s.length(), ans = 0;
+
         Map<Character, Integer> map = new HashMap<>(); // current index of character
-        // try to extend the range [i, j]
-        for (int j = 0, i = 0; j < n; j++) {
-            if (map.containsKey(s.charAt(j))) {
-                i = Math.max(map.get(s.charAt(j)), i);
+        for (int l = 0, r = 0; r < n; r++) {
+            if (map.containsKey(s.charAt(r))) {
+                l = Math.max(map.get(s.charAt(r)) + 1, l);
             }
-            ans = Math.max(ans, j - i + 1);
-            map.put(s.charAt(j), j + 1);
+            ans = Math.max(ans, r - l);
+            map.put(s.charAt(r), r);
         }
         return ans;
     }
 
     public static void main(String[] args) {
-        new Solution3().lengthOfLongestSubstring("pwwkew");
+        System.out.println(new Solution3().lengthOfLongestSubstring("abba"));
     }
 }
 
