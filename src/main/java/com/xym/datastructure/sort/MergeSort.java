@@ -48,7 +48,6 @@ public class MergeSort implements Sort {
                 i++;
             } else if (aux[i] < aux[j]) {
                 arr[k] = aux[i];
-                i++;
             } else {
                 arr[k] = aux[j];
                 j++;
